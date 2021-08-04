@@ -1,3 +1,4 @@
 [submodule "trustx_lib"]
 	path = trustx_lib
-	url = https://github.com/Infineon/optiga-trust-x
+	url = https://github.com/PopcornComputer/optiga-trust-x.git
+	branch = add_popcorncomputer_pal
