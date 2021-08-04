@@ -27,6 +27,7 @@ TRUSTX = trustx_lib
 
 BUILD_FOR_RPI = YES
 BUILD_FOR_ULTRA96 = NO
+BUILD_FOR_POPCORNCOMPUTER_POCKETPC = NO
 
 PALDIR =  $(TRUSTX)/pal/linux
 LIBDIR = $(TRUSTX)/optiga/util
@@ -84,6 +85,10 @@ ifdef LIBDIR
 	        ifeq ($(BUILD_FOR_ULTRA96), YES)
                 	LIBSRC += $(PALDIR)/target/ultra96/pal_ifx_i2c_config.c
         	endif
+
+		ifeq ($(BUILD_FOR_POPCORNCOMPUTER_POCKETPC), YES)
+			LIBSRC += $(PALDIR)/target/popcorncomputer/pocketpc/pal_ifx_i2c_config.c
+		endif
 	endif
 
         LIBSRC += $(shell find $(LIBDIR) -name '*.c')
