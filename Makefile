@@ -28,6 +28,7 @@ TRUSTX = trustx_lib
 BUILD_FOR_RPI = YES
 BUILD_FOR_ULTRA96 = NO
 BUILD_FOR_POPCORNCOMPUTER_POCKETPC = NO
+BUILD_FOR_POPCORNCOMPUTER_ORIGINALPOPCORN = NO
 
 PALDIR =  $(TRUSTX)/pal/linux
 LIBDIR = $(TRUSTX)/optiga/util
@@ -72,27 +73,31 @@ endif
 
 ifdef LIBDIR
 	ifdef PALDIR
-	        LIBSRC =  $(PALDIR)/pal.c
-	        LIBSRC += $(PALDIR)/pal_gpio.c
-	        LIBSRC += $(PALDIR)/pal_i2c.c
-	        LIBSRC += $(PALDIR)/pal_os_event.c
-        	LIBSRC += $(PALDIR)/pal_os_lock.c
-	        LIBSRC += $(PALDIR)/pal_os_timer.c
-	        ifeq ($(BUILD_FOR_RPI), YES)
-	                LIBSRC += $(PALDIR)/target/rpi3/pal_ifx_i2c_config.c
-        	endif
+		LIBSRC =  $(PALDIR)/pal.c
+		LIBSRC += $(PALDIR)/pal_gpio.c
+		LIBSRC += $(PALDIR)/pal_i2c.c
+		LIBSRC += $(PALDIR)/pal_os_event.c
+		LIBSRC += $(PALDIR)/pal_os_lock.c
+		LIBSRC += $(PALDIR)/pal_os_timer.c
+		ifeq ($(BUILD_FOR_RPI), YES)
+			LIBSRC += $(PALDIR)/target/rpi3/pal_ifx_i2c_config.c
+		endif
 
-	        ifeq ($(BUILD_FOR_ULTRA96), YES)
-                	LIBSRC += $(PALDIR)/target/ultra96/pal_ifx_i2c_config.c
-        	endif
+		ifeq ($(BUILD_FOR_ULTRA96), YES)
+			LIBSRC += $(PALDIR)/target/ultra96/pal_ifx_i2c_config.c
+		endif
 
 		ifeq ($(BUILD_FOR_POPCORNCOMPUTER_POCKETPC), YES)
 			LIBSRC += $(PALDIR)/target/popcorncomputer/pocketpc/pal_ifx_i2c_config.c
 		endif
+
+		ifeq ($(BUILD_FOR_POPCORNCOMPUTER_ORIGINALPOPCORN), YES)
+			LIBSRC += $(PALDIR)/target/popcorncomputer/originalpopcorn/pal_ifx_i2c_config.c
+		endif
 	endif
 
-        LIBSRC += $(shell find $(LIBDIR) -name '*.c')
-        LIBOBJ := $(patsubst %.c,%.o,$(LIBSRC))
+	LIBSRC += $(shell find $(LIBDIR) -name '*.c')
+	LIBOBJ := $(patsubst %.c,%.o,$(LIBSRC))
 	LIB = libtrustx.so
 endif
 
